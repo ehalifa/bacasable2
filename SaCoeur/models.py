@@ -18,11 +18,15 @@ class building(models.Model):
 
 
 class product_description(models.Model):
+    name = models.CharField(max_length=50)
+    brand = models.CharField(max_length=25)
     reference = models.CharField(max_length=120)
     type = models.CharField(max_length=50)
     capacity = models.IntegerField()
     color = models.CharField(max_length=20)
 
+    def __str__(self):
+        return self.name
 
 
 
@@ -32,10 +36,12 @@ class product(models.Model):
     id_building = models.ForeignKey(
         'building',
          models.SET_NULL,
-         blank=False,
+         blank=True,
          null=True)
     id_product_description = models.ForeignKey('product_description')
 
+    def __str__(self):
+        return self.id_product_description
 
     def avaibility(self):
         if not product.id_building:
