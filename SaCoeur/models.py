@@ -5,7 +5,7 @@ from django.db import models
 
 
 # Create your models here.
-class building(models.Model):
+class Building(models.Model):
     name = models.CharField(max_length=20)
     adress = models.CharField(max_length=100)
     capacity = models.IntegerField()
@@ -17,7 +17,7 @@ class building(models.Model):
         return self.name
 
 
-class product_description(models.Model):
+class Product_Description(models.Model):
     name = models.CharField(max_length=50)
     brand = models.CharField(max_length=25)
     reference = models.CharField(max_length=120)
@@ -31,19 +31,19 @@ class product_description(models.Model):
 
 
 
-class product(models.Model):
+class Product(models.Model):
     arrival_date = models.DateField()
     id_building = models.ForeignKey(
-        'building',
+        Building,
          models.SET_NULL,
          blank=True,
          null=True)
-    id_product_description = models.ForeignKey('product_description')
+    id_product_description = models.ForeignKey(Product_Description)
 
     def __str__(self):
-        return self.id_product_description
+        return self.id_product_description.name
 
     def avaibility(self):
-        if not product.id_building:
+        if not Product.id_building:
             return False
 
