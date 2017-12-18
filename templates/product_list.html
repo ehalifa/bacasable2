@@ -1,6 +1,25 @@
 
-<h2>{{ product_list }}</h2>
+<h2>Disponibilité des produits</h2>
+
+<table border="1"  width="40%">
+            <tr  align="left" valign="top"  >
+                <td> <h3 > Product </h3> </td>
+                <td> <h3 > Where </h3>
 {% for products in product_list %}
-    <h3> {{ products.name }} :  {{ products.type}} </h3>
-    <p>Available products in buildings: {{ products.bagnb }} </p>
+
+
+        {% ifchanged products.id_product_description__name %}
+                </td>
+            </tr>
+            <tr  align="left" valign="top">
+                <td> <b>{{ products.id_product_description__name}}</b></td>
+                <td>{{ products.id_building__name}} : {{ products.bagnb }}
+
+        {% else %}
+
+                <br>{{ products.id_building__name}} : {{ products.bagnb }}
+
+        {% endifchanged %}
 {% endfor %}
+        </tr>
+</table>

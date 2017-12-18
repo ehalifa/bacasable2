@@ -23,10 +23,11 @@ class BuildingList(ListView):
 """
 
 class ProductList(ListView):
-    model = Product_Description
+    model = Product
     template_name = "product_list.html"
     context_object_name = "product_list"
-    queryset = Product_Description.objects.values('name','type').annotate(bagnb = Count('product__id_product_description'))
+    #queryset = Product_Description.objects.values('name','type').annotate(bagnb = Count('product__id_product_description'))
+    queryset = Product.objects.values('id_product_description__name', 'id_product_description__type', 'id_building__name').annotate(bagnb = Count('id_product_description'))
 
 """
 class ProductDetailList(DetailView):
