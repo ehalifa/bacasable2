@@ -27,7 +27,23 @@ class ProductList(ListView):
     template_name = "product_list.html"
     context_object_name = "product_list"
     #queryset = Product_Description.objects.values('name','type').annotate(bagnb = Count('product__id_product_description'))
-    queryset = Product.objects.values('id_product_description__name', 'id_product_description__type', 'id_building__name').annotate(bagnb = Count('id_product_description'))
+    queryset = Product.objects.values('id_product_description__name', 'id_building__name').annotate(bagnb = Count('id_product_description'))
+
+
+    def search(request):
+        query = request.GET.get('query')
+        if not query:
+            products = Product.objects.all()
+        else:
+            products = Product.objects.filter(id_product_description__name__icontains=query)
+        if not products.exists():
+            products = Product.objects.filter(id_product_description__brand__icontains=query)
+        brand = "Résultats pour la requête %s"%query
+        context = {
+            'product':products,
+            'brand' : brand
+        }
+        return render(request, 'product_list.html', context)
 
 """
 class ProductDetailList(DetailView):
