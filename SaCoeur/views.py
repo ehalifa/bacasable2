@@ -19,14 +19,14 @@ class BuildingList(ListView):
         queryset = super().get_queryset()
         queryset = queryset.values("id").order_by()
         return queryset
-    #queryset = Building.objects.values('product__id_product_description__name').annotate(total = Sum('capacity'),bagnb = Count('name'))
+    #queryset = Building.objects.values('product__id_product_description__name').annotate(total = Sum('capacity'),bagnb = Count('product__id_building'))
 """
 
 class ProductList(ListView):
     model = Product_Description
     template_name = "product_list.html"
     context_object_name = "product_list"
-    queryset = Product_Description.objects.values('product__id_product_description__brand').annotate(bagnb = Count('id'))
+    queryset = Product_Description.objects.values('name','type').annotate(bagnb = Count('product__id_product_description'))
 
 """
 class ProductDetailList(DetailView):
