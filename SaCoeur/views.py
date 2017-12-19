@@ -3,6 +3,7 @@ from .models import *
 from django.views.generic import *
 from django.urls import reverse, reverse_lazy
 from django.db.models import Count,Sum, Avg
+from django.shortcuts import get_object_or_404
 
 # je dois pouvoir visualiser les stocks des produits dans chaque building
 # 1) liste des buildings (order by type of building) dans un premeir temps  "BuildingList(ListView)"
@@ -27,7 +28,17 @@ class ProductList(ListView):
     template_name = "product_list.html"
     context_object_name = "product_list"
     #queryset = Product_Description.objects.values('name','type').annotate(bagnb = Count('product__id_product_description'))
-    queryset = Product.objects.values('id_product_description__name', 'id_building__name').annotate(bagnb = Count('id_product_description'))
+    #queryset = Product.objects.values('id_product_description__name', 'id_building__name').annotate(bagnb = Count('id_product_description'))
+
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.publisher = get_object_or_404(Product, name=self.kwargs['product_type'])
+        queryset = queryset.values('id_product_description__name', 'id_building__name').annotate(bagnb = Count('id_product_description'))
+        if self.publisher:
+            queryset.filter(id_product_description__name=self.publisher)
+        return queryset
+
 
 
     def search(request):
