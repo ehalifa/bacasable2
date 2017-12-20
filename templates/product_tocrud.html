@@ -17,7 +17,7 @@
             </tr>
             <tr  align="left" valign="top">
                 <td> <b>{{ products.id_product_description__name}}</b></td>
-                <td>{{ products.id_building__name}} - ID_produit : <a href="{% url 'product_detail' products.id %}" {{ products.id }}></a>
+                <td>{{ products.id_building__name}} - ID_produit : {{ products.id }}<a href="../products/details/{{ products.id }}"><button>Voir details</button></a>
 
         {% else %}
 

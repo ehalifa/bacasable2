@@ -32,6 +32,19 @@ class ProductDetail(DetailView):
     template_name = "product_detail.html"
     context_object_name = "product_detail"
 
+class ProductToCRUD(ListView):
+    model = Product
+    template_name = "product_tocrud.html"
+    context_object_name = "product_crud"
+
+    def get_queryset(self):
+        result = super(ProductToCRUD, self).get_queryset()
+        result = result.values('id_product_description__name', 'id_building__name', 'id')
+        query = self.request.GET.get("q")
+        if query:
+            result = result.filter(id_product_description__name__icontains = query)
+        return result
+
 class CreateProduct(CreateView):
     model = Product
     fields = ('arrival_date', 'id_building', 'id_product_description')
