@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import *
 from django.views.generic import *
 from django.db.models import Count
+from django.urls import reverse_lazy,reverse
 
 class BuildingList(ListView):
     model = Building
@@ -48,3 +49,28 @@ class ProductToCRUD(ListView):
 class CreateProduct(CreateView):
     model = Product
     fields = ('arrival_date', 'id_building', 'id_product_description')
+    template_name = "new_product.html"
+    success_url = reverse_lazy('producttocrud')
+
+    def get_absolute_url(self):
+        return reverse('producttocrud')
+
+class UpdateProduct(UpdateView):
+    model = Product
+    fields = ('arrival_date', 'id_building', 'id_product_description')
+    template_name = "update_product.html"
+    success_url = reverse_lazy('producttocrud')
+    context_object_name = "products"
+
+    def get_absolute_url(self):
+        return reverse('producttocrud')
+
+class DeleteProduct(DeleteView):
+    model = Product
+    fields = ('arrival_date', 'id_building', 'id_product_description')
+    template_name = "delete_product.html"
+    success_url = reverse_lazy('producttocrud')
+    context_object_name = "products"
+
+    def get_absolute_url(self):
+        return reverse('producttocrud')
