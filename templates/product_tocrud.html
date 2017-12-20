@@ -1,0 +1,29 @@
+
+<h2>Disponibilité des produits</h2>
+
+{% include 'search_form.html' %}
+
+
+
+<table border="1"  width="40%">
+            <tr  align="left" valign="top"  >
+                <td> <h3 > Product </h3> </td>
+                <td> <h3 > Where : ID Produit </h3>
+{% for products in product_crud %}
+
+
+        {% ifchanged products.id_product_description__name %}
+                </td>
+            </tr>
+            <tr  align="left" valign="top">
+                <td> <b>{{ products.id_product_description__name}}</b></td>
+                <td>{{ products.id_building__name}} - ID_produit : <a href="{% url 'product_detail' products.id %}" {{ products.id }}></a>
+
+        {% else %}
+
+                <br>{{ products.id_building__name}} : {{ products.id }}
+
+        {% endifchanged %}
+{% endfor %}
+        </tr>
+</table>

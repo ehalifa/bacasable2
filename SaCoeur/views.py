@@ -21,7 +21,7 @@ class BuildingList(ListView):
         return queryset
 
 
-
+#TODO_DONE En tant que vendeur, je dois pouvoir visualiser la disponibilité d’un produit afin de connaitre le délai de livraison des produits pour en acheter un
 class ProductList(ListView):
     model = Product
     template_name = "product_list.html"
@@ -31,6 +31,22 @@ class ProductList(ListView):
     def get_queryset(self):
         result = super(ProductList, self).get_queryset()
         result = result.values('id_product_description__name', 'id_building__name').annotate(bagnb = Count('id_product_description'))
+        query = self.request.GET.get('q')
+        if query:
+            result = result.filter(id_product_description__name__icontains = query)
+        return result
+
+#TODO_DO En tant que magasinier, je dois pouvoir visualiser la disponibilité d’un produit afin de savoir si un mouvement de stock est possible
+class ProductToCRUD(ListView):
+    model = Product
+    template_name = "product_tocrud.html"
+    context_object_name = "product_crud"
+
+
+    def get_queryset(self):
+        result = super(ProductToCRUD, self).get_queryset()
+        result = result.values('id_product_description__name', 'id_building__name', 'id').order_by('id_product_description')
+        #result = result.values('id_product_description__name', 'id_building__name').annotate(bagnb = Count('id_product_description'))
         query = self.request.GET.get('q')
         if query:
             result = result.filter(id_product_description__name__icontains = query)
