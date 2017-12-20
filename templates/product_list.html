@@ -1,9 +1,6 @@
 
-{% for produit in product %}
-
-
-        <h2>{{ produit.id_building }}</h2>
-
-
-    <p>{{ produit.id_product_description }}</p>
+<h2>{{ product_list }}</h2>
+{% for products in product_list %}
+    <h3> {{ products.name }} :  {{ products.type}} </h3>
+    <p>Available products in buildings: {{ products.bagnb }} </p>
 {% endfor %}

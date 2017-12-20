@@ -1,0 +1,19 @@
+{% for building in building_list %}
+
+    <h2>{{ building.name }} :
+
+    {% if building.type == 2 %}
+    STORE
+    {% endif %}
+
+    {% if building.type == 1 %}
+    STORAGE
+    {% endif %}
+
+    </h2>
+
+    <p>Total capacity : {{ building.capacity }}</p>
+    <p>Total product stored : {{ building.total_product }}</p>
+{% endfor %}
+<p>{{ building.product__id_product_description__name }}  {{ building.bagnb }}</p>
+
