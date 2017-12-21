@@ -8,7 +8,7 @@
 <table border="1"  width="40%">
             <tr  align="left" valign="top"  >
                 <td> <h3 > Product </h3> </td>
-                <td> <h3 > Where : ID Produit </h3>
+                <td> <h3 > Where - ID Produit </h3>
 {% for products in product_crud %}
 
 
@@ -18,16 +18,16 @@
             <tr  align="left" valign="top">
                 <td> <b>{{ products.id_product_description__name}}</b></td>
                 <td>{{ products.id_building__name}} - ID_produit : {{ products.id }}
-                <a href="../products/details/{{ products.id }}"><button>Voir details</button></a>
-                <a href="../products/details/update/{{ products.id }}"><button>Update</button></a>
-                <a href="../products/details/delete/{{ products.id }}"><button>Delete</button></a>
+                <a href="../detail/{{ products.id }}"><button>Details</button></a>
+                <a href="../update/{{ products.id }}"><button>Update</button></a>
+                <a href="../delete/{{ products.id }}"><button>Delete</button></a>
 
         {% else %}
 
                 <br>{{ products.id_building__name}} - ID_produit :{{ products.id }}
-                <a href="../products/details/{{ products.id }}"><button>Voir details</button></a>
-                <a href="../products/details/update/{{ products.id }}"><button>Update</button></a>
-                <a href="../products/details/delete/{{ products.id }}"><button>Delete</button></a>
+                <a href="../detail/{{ products.id }}"><button>Details</button></a>
+                <a href="../update/{{ products.id }}"><button>Update</button></a>
+                <a href="../delete/{{ products.id }}"><button>Delete</button></a>
 
 
         {% endifchanged %}
