@@ -1,19 +1,43 @@
-{% for building in building_list %}
 
-    <h2>{{ building.name }} :
+{% include 'search_form_building.html' %}
 
-    {% if building.type == 2 %}
-    STORE
-    {% endif %}
+<table border="1"  width="40%">
+    <tr  align="left" valign="top">
+        <td><h3>Name</h3></td>
+        <td><h3>Type</h3></td>
+        <td><h3>Capacity</h3></td>
+        <td><h3>Stored</h3></td>
+    </tr>
 
-    {% if building.type == 1 %}
-    STORAGE
-    {% endif %}
+        {% for building in building_list %}
+            <tr>
+                <td><a href="../product/building/{{ building.id }}">{{ building.name }}</a></td>
+                {% if building.type == 1 %}
+                    <td>STORAGE</td>
+                    {% else %}
+                    <td>STORE</td>
+                {% endif %}
+                <td>{{ building.capacity }}</td>
+                <td>{{ building.total_product }}</td>
+            </tr>
+        {% endfor %}
 
-    </h2>
 
-    <p>Total capacity : {{ building.capacity }}</p>
-    <p>Total product stored : {{ building.total_product }}</p>
-{% endfor %}
-<p>{{ building.product__id_product_description__name }}  {{ building.bagnb }}</p>
+
+{#{% for building in building_list %}#}
+{##}
+{#    <h2>{{ building.name }} :#}
+{##}
+{#    {% if building.type == 2 %}#}
+{#        STORE#}
+{#    {% else %}#}
+{#        STORAGE#}
+{#    {% endif %}#}
+{##}
+{#    </h2> <a href="../product/building/{{ building.id }}"><button>Details magasin</button></a>#}
+{##}
+{#    <p>Total capacity : {{ building.capacity }}</p>#}
+{#    <p>Total product stored : {{ building.total_product }}</p>#}
+{#{% endfor %}#}
+{#<p>{{ building.product__id_product_description__name }}  {{ building.bagnb }}</p>#}
 

@@ -1,0 +1,25 @@
+
+
+<table border="1"  width="40%">
+            <tr  align="left" valign="top"  >
+                <td> <h3 > Product Name - ID </h3> </td>
+                <td> <h3 > Arrival Date </h3></td>
+{% for products in product_building %}
+
+
+        {% ifchanged products.id_product_description__name %}
+                </td>
+            </tr>
+            <tr  align="left" valign="top">
+                <td> <b>{{ products.id_product_description__name}} - {{ products.id }}</b></td>
+                <td>{{ products.arrival_date}} : {{ products.bagnb }}
+
+        {% else %}
+
+                <br>{{ products.arrival_date}} : {{ products.bagnb }}
+
+        {% endifchanged %}
+{% endfor %}
+        </tr>
+</table>
+<a href="../../building"><button>Return</button></a>

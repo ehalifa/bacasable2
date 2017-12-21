@@ -11,7 +11,7 @@ class BuildingList(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.values("name","type","capacity").order_by("type").annotate( total_product = Count("product__id_product_description__name"))
+        queryset = queryset.values("name","type","capacity","id").order_by("type").annotate( total_product = Count("product__id_product_description__name"))
         return queryset
 
 class ProductList(ListView):
@@ -45,6 +45,23 @@ class ProductToCRUD(ListView):
         if query:
             result = result.filter(id_product_description__name__icontains = query)
         return result
+
+
+#TODO_DO En tant que coordinateur, je dois pouvoir visualiser les stocks des magasins et de l’entrepôt afin de les suivre
+class ProductByBuilding(ListView):
+    model = Product
+    template_name = "product_building.html"
+    context_object_name = "product_building"
+
+    def get_queryset(self, **kwargs):
+        result = super(ProductByBuilding,self).get_queryset()
+        result = result.values('id_product_description__name', 'arrival_date', 'id', 'id_building').annotate(bagnb = Count('id_product_description'))
+        query = self.kwargs['id_building']
+
+        if query:
+            result = result.filter(id_building = query)
+        return result
+
 
 class CreateProduct(CreateView):
     model = Product
