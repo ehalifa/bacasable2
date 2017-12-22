@@ -25,7 +25,7 @@ SECRET_KEY = '!n3@#x46p3wz-*h6$(z*^_-v_7#5dmp*7t9u(ta#=^*9ik*m-('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost', 'bacasable2-stats.uic.org']
 
 
 # Application definition

@@ -8,6 +8,7 @@ from django.urls import reverse_lazy,reverse
 class HomePageView(TemplateView):
     template_name = "index.html"
 
+
 class BuildingList(ListView):
     model = Building
     template_name = "building_list.html"
@@ -18,6 +19,9 @@ class BuildingList(ListView):
         queryset = queryset.values("name","type","capacity","id").order_by("type").annotate( total_product = Count("product__id_product_description__name"))
         return queryset
 
+#TODO_DONE En tant que vendeur, je dois pouvoir visualiser la disponibilité d’un produit afin de connaitre le délai de livraison des produits pour en acheter un
+#TODO_DONE En tant que coordinateur, je dois pouvoir visualiser la disponibilité d’un produit afin de savoir si un produit est en stock et s’il faut en acheter un
+#TODO_DONE En tant que magasinier, je dois pouvoir visualiser la disponibilité d’un produit afin de savoir si un mouvement de stock est possible
 class ProductList(ListView):
     model = Product
     template_name = "product_list.html"
@@ -37,6 +41,7 @@ class ProductDetail(DetailView):
     template_name = "product_detail.html"
     context_object_name = "product_detail"
 
+#TODO_DONE En tant que magasinier, je dois pouvoir ajouter des produits entrant afin d’actualiser les stocks
 class ProductToCRUD(ListView):
     model = Product
     template_name = "product_tocrud.html"
@@ -51,7 +56,7 @@ class ProductToCRUD(ListView):
         return result
 
 
-#TODO_DO En tant que coordinateur, je dois pouvoir visualiser les stocks des magasins et de l’entrepôt afin de les suivre
+#TODO_DONE En tant que coordinateur, je dois pouvoir visualiser les stocks des magasins et de l’entrepôt afin de les suivre
 class ProductByBuilding(ListView):
     model = Product
     template_name = "product_building.html"
@@ -66,7 +71,7 @@ class ProductByBuilding(ListView):
             result = result.filter(id_building = query)
         return result
 
-
+#TODO_DONE En tant que magasinier, je dois pouvoir enregistrer les mouvements de stock afin de contrôler les mouvements des produits
 class CreateProduct(CreateView):
     model = Product
     fields = ('arrival_date', 'id_building', 'id_product_description')
@@ -76,6 +81,7 @@ class CreateProduct(CreateView):
     def get_absolute_url(self):
         return reverse('producttocrud')
 
+#TODO_DONE En tant que magasinier, je dois pouvoir enregistrer les mouvements de stock afin de contrôler les mouvements des produits
 class UpdateProduct(UpdateView):
     model = Product
     fields = ('arrival_date', 'id_building', 'id_product_description')
@@ -86,6 +92,7 @@ class UpdateProduct(UpdateView):
     def get_absolute_url(self):
         return reverse('producttocrud')
 
+#TODO_DONE En tant que magasinier, je dois pouvoir enregistrer les mouvements de stock afin de contrôler les mouvements des produits
 class DeleteProduct(DeleteView):
     model = Product
     fields = ('arrival_date', 'id_building', 'id_product_description')
