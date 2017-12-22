@@ -1,0 +1,38 @@
+
+<h2>Disponibilité des produits</h2>
+
+{% include 'search_form_crud.html' %}
+
+<a href="../new"><button>Add</button></a>
+
+<table border="1"  width="40%">
+            <tr  align="left" valign="top"  >
+                <td> <h3 > Product </h3> </td>
+                <td> <h3 > Where - ID Produit </h3>
+{% for products in product_crud %}
+
+
+        {% ifchanged products.id_product_description__name %}
+                </td>
+            </tr>
+            <tr  align="left" valign="top">
+                <td> <b>{{ products.id_product_description__name}}</b></td>
+                <td>{{ products.id_building__name}} - ID_produit : {{ products.id }}
+                <a href="../detail/{{ products.id }}"><button>Details</button></a>
+                <a href="../update/{{ products.id }}"><button>Update</button></a>
+                <a href="../delete/{{ products.id }}"><button>Delete</button></a>
+
+        {% else %}
+
+                <br>{{ products.id_building__name}} - ID_produit :{{ products.id }}
+                <a href="../detail/{{ products.id }}"><button>Details</button></a>
+                <a href="../update/{{ products.id }}"><button>Update</button></a>
+                <a href="../delete/{{ products.id }}"><button>Delete</button></a>
+
+
+        {% endifchanged %}
+{% endfor %}
+        </tr>
+</table>
+
+<a href="../../"><button>Home Page</button></a>

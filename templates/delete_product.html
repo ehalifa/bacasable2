@@ -1,0 +1,5 @@
+<form method="post">
+    {% csrf_token %}
+    Are you sure you want to delete "{{ products.id_product_description }}" ?
+    <input type="submit" value="Submit" />
+</form>
