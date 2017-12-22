@@ -4,6 +4,10 @@ from django.views.generic import *
 from django.db.models import Count
 from django.urls import reverse_lazy,reverse
 
+
+class HomePageView(TemplateView):
+    template_name = "index.html"
+
 class BuildingList(ListView):
     model = Building
     template_name = "building_list.html"

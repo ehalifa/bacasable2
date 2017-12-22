@@ -2,6 +2,7 @@ from django.conf.urls import url
 from .views import *
 
 urlpatterns = [
+    url(r'^$', HomePageView.as_view(), name='index'),
     url(r'^building/$', BuildingList.as_view(), name= 'building'),
     url(r'^product/list_stock/$', ProductList.as_view(), name='products'),
     url(r'^product/list_stock/(?P<product_type>[\w]*)$', ProductList.as_view(), name='products'),
